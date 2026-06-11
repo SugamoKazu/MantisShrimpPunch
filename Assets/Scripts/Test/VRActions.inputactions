@@ -1,0 +1,76 @@
+{
+    "name": "VRActions",
+    "maps": [
+        {
+            "name": "VRControlls",
+            "id": "adea0366-40b8-4952-a373-c0f75fe938c2",
+            "actions": [
+                {
+                    "name": "StartUdpStream",
+                    "type": "Button",
+                    "id": "375d70c6-c4a7-4d65-abe0-1b4a363430f1",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "StopUdpStream",
+                    "type": "Button",
+                    "id": "e5cc675b-1a57-4c2b-bfa4-2a800c2b846a",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "b7a44576-7b1e-4bac-a63a-95eaa4d25aa9",
+                    "path": "<Keyboard>/x",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "StopUdpStream",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "fdb6b01a-2f61-416a-bf51-54718be94b4b",
+                    "path": "<XRController>{RightHand}/secondaryButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "StopUdpStream",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "fde4d233-62c9-45aa-8e70-476c74a22983",
+                    "path": "<Keyboard>/s",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "StartUdpStream",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "f2a6261a-b39f-4e42-bc2d-e50117a536a3",
+                    "path": "<XRController>{RightHand}/primaryButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "StartUdpStream",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        }
+    ],
+    "controlSchemes": []
+}

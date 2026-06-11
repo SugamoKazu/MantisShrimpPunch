@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: 93168b6b4ef215a43bb9b76783112faa
+TextScriptImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 26661
+  packageName: Bluetooth LE for iOS, tvOS and Android
+  packageVersion: 2.60
+  assetPath: Assets/Shatalmic/README.txt
+  uploadId: 678184

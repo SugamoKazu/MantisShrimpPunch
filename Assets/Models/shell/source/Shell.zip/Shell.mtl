@@ -1,0 +1,23 @@
+#
+# platform
+#
+# Materials for the file "Shell.obj"
+#
+
+
+newmtl default
+   illum 1
+   d 1
+   Ns 6
+   sharpness 60
+   Ni 1
+
+newmtl m1
+   illum 1
+   d 1
+   Ns 6
+   sharpness 60
+   Ni 1
+   map_Kd ShellImagem1.png
+
+# end of file
