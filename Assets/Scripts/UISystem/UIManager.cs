@@ -105,7 +105,7 @@ public class UIManager : MonoBehaviour
 
             if (/*tutorial.transform.childCount == 3 &&*/ OVRInput.GetDown(OVRInput.Button.One) || Input.GetKeyDown("space"))
             {
-                //tutorialVoiceObj.SetActive(false);
+                tutorialVoiceObj.SetActive(false);
                 state++;
             }
 
