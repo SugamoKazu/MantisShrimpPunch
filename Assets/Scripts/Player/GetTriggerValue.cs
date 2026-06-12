@@ -36,8 +36,6 @@ public class GetTriggerValue : MonoBehaviour
     {
         if (TriggerUp) punchPower = 0f;
         TriggerUp = false; // Reset TriggerUp each frame
-
-        
         
 
         /*
@@ -54,7 +52,21 @@ public class GetTriggerValue : MonoBehaviour
 
         if (LR == LRSide.Left)
         {
-            Lvalue = 2f - 2 * DeviceDataManager.Instance.LeftData.Value / sensor_offset;
+            if (ModeManager.isConnectionMode)
+            {
+                Lvalue = 2f - 2 * DeviceDataManager.Instance.LeftData.Value / sensor_offset;
+            }
+            else
+            {
+                if (Input.GetMouseButton(0))
+                {
+                    Lvalue = Mathf.Min(Lvalue + Time.deltaTime * 2f, 2f);
+                }
+                else
+                {
+                    Lvalue = 0f;
+                }
+            }
 
             //Lvalue = LobjectController.value;
             GetLeftTriggerValue();
@@ -76,7 +88,21 @@ public class GetTriggerValue : MonoBehaviour
         }
         else if (LR == LRSide.Right)
         {
-            Rvalue = 2f - 2 * DeviceDataManager.Instance.RightData.Value / sensor_offset;
+            if (ModeManager.isConnectionMode)
+            {
+                Rvalue = 2f - 2 * DeviceDataManager.Instance.RightData.Value / sensor_offset;
+            }
+            else
+            {
+                if (Input.GetMouseButton(1))
+                {
+                    Rvalue = Mathf.Min(Rvalue + Time.deltaTime * 2f, 2f);
+                }
+                else
+                {
+                    Rvalue = 0f;
+                }
+            }
 
             //Rvalue = RobjectController.value;
             GetRightTriggerValue();
@@ -126,21 +152,28 @@ public class GetTriggerValue : MonoBehaviour
             }
         }
 
+        bool isTriggerPressed = false;
+        bool isTriggerReleased = false;
 
-        if (/*OVRInput.Get(OVRInput.RawButton.LIndexTrigger) ||*/ Input.GetKey("a"))// || Input.GetKey("space"))
+        if (ModeManager.isConnectionMode)
         {
-            // Trigger is pressed
+            isTriggerPressed = OVRInput.Get(OVRInput.RawButton.LIndexTrigger);
+            isTriggerReleased = OVRInput.GetUp(OVRInput.RawButton.LIndexTrigger);
+        }
+        else
+        {
+            isTriggerPressed = Input.GetMouseButton(0);
+            isTriggerReleased = Input.GetMouseButtonUp(0);
+        }
+
+        if (isTriggerPressed)
+        {
             if (punchPower < 2f) punchPower = Lvalue;
-            //Debug.Log(punchPower);
         }
-        if (/*OVRInput.GetUp(OVRInput.RawButton.LIndexTrigger) ||*/ Input.GetKeyUp("a")) //|| Input.GetKeyUp("space"))
+        if (isTriggerReleased)
         {
-            // Trigger is released
             TriggerUp = true;
-            //punchPower = 0f;
         }
-
-
     }
 
     void GetRightTriggerValue()
@@ -172,20 +205,27 @@ public class GetTriggerValue : MonoBehaviour
             }
         }
 
+        bool isTriggerPressed = false;
+        bool isTriggerReleased = false;
 
-        if (/*OVRInput.Get(OVRInput.RawButton.RIndexTrigger) ||*/ Input.GetKey("d"))// || Input.GetKey("space"))
+        if (ModeManager.isConnectionMode)
         {
-            // Trigger is pressed
+            isTriggerPressed = OVRInput.Get(OVRInput.RawButton.RIndexTrigger);
+            isTriggerReleased = OVRInput.GetUp(OVRInput.RawButton.RIndexTrigger);
+        }
+        else
+        {
+            isTriggerPressed = Input.GetMouseButton(1);
+            isTriggerReleased = Input.GetMouseButtonUp(1);
+        }
+
+        if (isTriggerPressed)
+        {
             if (punchPower < 2f) punchPower = Rvalue;
-            //Debug.Log(punchPower);
         }
-        if (/*OVRInput.GetUp(OVRInput.RawButton.RIndexTrigger) ||*/ Input.GetKeyUp("d"))// || Input.GetKeyUp("space"))
+        if (isTriggerReleased)
         {
-            // Trigger is released
             TriggerUp = true;
-            //punchPower = 0f;
         }
-
     }
-
 }

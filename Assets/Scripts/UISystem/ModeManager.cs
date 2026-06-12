@@ -1,9 +1,19 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class ModeManager : MonoBehaviour
 {
     public static bool isMainMode = true;
+    public static bool isConnectionMode = false; // true:接続モード、false:非接続モード
+    [SerializeField] private bool defaultConnectionMode = false;   // インスペクターで変更可能
+
     private GameObject chairObj, mainArm, subArm;
+
+    private void Awake()
+    {
+        isConnectionMode = defaultConnectionMode;
+    }
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -15,9 +25,11 @@ public class ModeManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (SceneManager.GetActiveScene().name == "GameTitle" && Input.GetKeyDown(KeyCode.V))
+        {
+            isConnectionMode = !isConnectionMode;
+        }
         
-        //chairObj = GameObject.Find("Chair");
-
         if (OVRInput.GetDown(OVRInput.Button.SecondaryThumbstick) || Input.GetKeyDown(KeyCode.LeftAlt)) //クエスト左コンのスティック押し込み
         {
             //Debug.Log("PrimaryThumbstick");
