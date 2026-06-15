@@ -57,7 +57,7 @@ public class DataSendManager : MonoBehaviour
         }
         else
         {
-            Debug.LogError("BleMultiDeviceManager is not available.");
+            if(ModeManager.isConnectionMode) Debug.Log("BleMultiDeviceManager is not available.");
         }
     }
 }
