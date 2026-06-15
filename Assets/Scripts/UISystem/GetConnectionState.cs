@@ -12,6 +12,8 @@ public class GetConnectionState : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if(!ModeManager.isConnectionMode) return;
+        
         BleConnectionState rightState = BleMultiDeviceManager.Instance.GetDeviceState("Syakote_Right");
         BleConnectionState leftState = BleMultiDeviceManager.Instance.GetDeviceState("Syakote_Left");
         BleConnectionState solenoidState = BleMultiDeviceManager.Instance.GetDeviceState("Syakote_Solenoid");
