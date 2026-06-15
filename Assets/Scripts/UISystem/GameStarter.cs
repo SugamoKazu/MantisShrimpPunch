@@ -30,7 +30,8 @@ public class GameStarter : MonoBehaviour
         }
         if (leftReady && rightReady)
         {
-            UI.GetComponent<UIManager>().state++;
+            // UI.GetComponent<UIManager>().state++;
+            UnityEngine.SceneManagement.SceneManager.LoadScene("Game");
             gameObject.SetActive(false);
         }
 
