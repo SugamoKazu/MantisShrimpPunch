@@ -56,7 +56,7 @@ public class GetTriggerValue : MonoBehaviour
             {
                 Lvalue = 2f - 2 * DeviceDataManager.Instance.LeftData.Value / sensor_offset;
             }
-            else
+            else // PCモードはマウス操作
             {
                 if (Input.GetMouseButton(0))
                 {
@@ -92,7 +92,7 @@ public class GetTriggerValue : MonoBehaviour
             {
                 Rvalue = 2f - 2 * DeviceDataManager.Instance.RightData.Value / sensor_offset;
             }
-            else
+            else // PCモードはマウス操作
             {
                 if (Input.GetMouseButton(1))
                 {

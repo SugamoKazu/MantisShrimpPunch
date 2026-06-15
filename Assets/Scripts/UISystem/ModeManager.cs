@@ -4,7 +4,7 @@ using UnityEngine.SceneManagement;
 public class ModeManager : MonoBehaviour
 {
     public static bool isMainMode = true;
-    public static bool isConnectionMode = false; // true:接続モード、false:非接続モード
+    public static bool isConnectionMode = false; // true:マイコン接続モード、false:マイコン非接続モード
     [SerializeField] private bool defaultConnectionMode = false;   // インスペクターで変更可能
 
     private GameObject chairObj, mainArm, subArm;

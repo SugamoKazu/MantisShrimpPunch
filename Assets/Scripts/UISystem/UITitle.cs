@@ -30,6 +30,8 @@ public class UITitle : MonoBehaviour
     private string usedArmLeft, usedArmRight;
     //SettingsUI settingsUI;
 
+    private bool isTutorialMode = true; 
+
 
     // Update is called once per frame
     void Update()
@@ -51,14 +53,23 @@ public class UITitle : MonoBehaviour
             pushcount++;
         }
 
+        if (Input.GetKeyDown(KeyCode.T))
+        {
+            isTutorialMode = !isTutorialMode;
+        }
+
         if (OVRInput.GetDown(OVRInput.Button.One,OVRInput.Controller.RTouch) || Input.GetKeyDown(KeyCode.Space))
         {
             //DataSendManager.Instance.SendDefault("Syakote_Right");
             //DataSendManager.Instance.SendDefault("Syakote_Left");
-            DataSendManager.Instance.SendPassive("Syakote_Right");
-            DataSendManager.Instance.SendPassive("Syakote_Left");
+
+            // デバッグ用にコメントアウト
+            // DataSendManager.Instance.SendPassive("Syakote_Right");
+            // DataSendManager.Instance.SendPassive("Syakote_Left");
+
             pushcount = 0;
-            UnityEngine.SceneManagement.SceneManager.LoadScene("Game");
+            if(isTutorialMode) UnityEngine.SceneManagement.SceneManager.LoadScene("Tutorial");
+            else UnityEngine.SceneManagement.SceneManager.LoadScene("Game");
 
         }
         

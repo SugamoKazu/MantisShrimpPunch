@@ -70,13 +70,17 @@ public class UIManager : MonoBehaviour
         bossObject.SetActive(false);
         bossHP.SetActive(false);
 
-        tutorialVoiceObj.SetActive(true);
-        pauseObj.SetActive(true);
+        if (tutorial != null) tutorial.SetActive(state == 0);
+        if (tutorialVoiceObj != null) tutorialVoiceObj.SetActive(state == 0);
+        pauseObj.SetActive(false);
         startObj.SetActive(false);
         gameObj.SetActive(false);
         resultObj.SetActive(false);
 
-        state = 0;
+        audioSource.pitch = 0.7f;
+
+        // state = 0;
+        // state = 1;
 
         //audioSource = GetComponent<AudioSource>();
     }
@@ -89,11 +93,11 @@ public class UIManager : MonoBehaviour
         if (state == 0)//チュートリアル
         {
             //RenderSettings.fogDensity = 0.5f;
-            audioSource.pitch = 0.7f;
+            
 
             pauseObj.SetActive(false);
 
-            tutorial.SetActive(true);
+            if (tutorial != null) tutorial.SetActive(true);
             gameObj.SetActive(true);
 
             startCount = 4f;
@@ -105,7 +109,7 @@ public class UIManager : MonoBehaviour
 
             if (/*tutorial.transform.childCount == 3 &&*/ OVRInput.GetDown(OVRInput.Button.One) || Input.GetKeyDown("space"))
             {
-                tutorialVoiceObj.SetActive(false);
+                if (tutorialVoiceObj != null) tutorialVoiceObj.SetActive(false);
                 state++;
             }
 
@@ -114,12 +118,22 @@ public class UIManager : MonoBehaviour
         }
         if (state == 1)//ゲーム開始前カウントダウン
         {
+            if (tutorial != null) tutorial.SetActive(false);
+            if (tutorialVoiceObj != null) tutorialVoiceObj.SetActive(false);
+            if (startObj != null) startObj.SetActive(true);
+            if (gameObj != null) gameObj.SetActive(true);
 
-            startObj.SetActive(true);
+            FilledCircle(gameTimeCircle, 0f, 1f);
+            playTimeText.text = "";
+
+            // audioSource.pitch = 0.7f;
             //audioSources[0].Play();
-            foreach (Rigidbody rb in tutorial.GetComponentsInChildren<Rigidbody>())
+            if (tutorial != null)
             {
-                if (rb != null) Destroy(rb.gameObject);
+                foreach (Rigidbody rb in tutorial.GetComponentsInChildren<Rigidbody>())
+                {
+                    if (rb != null) Destroy(rb.gameObject);
+                }
             }
 
             startCount = CountDown(startCount, startCountText);

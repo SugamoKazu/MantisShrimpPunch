@@ -7822,7 +7822,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &403624264
 RectTransform:
   m_ObjectHideFlags: 0
@@ -40286,6 +40286,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7603681680a004542bd3b7e2ae174be5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  defaultConnectionMode: 0
 --- !u!4 &1305094649
 Transform:
   m_ObjectHideFlags: 0
@@ -48192,6 +48193,10 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4615797010712369776, guid: 55ac4f67ced806c47b0f94d0bb80af44, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4741871492311023822, guid: 55ac4f67ced806c47b0f94d0bb80af44, type: 3}
       propertyPath: player
       value: 
@@ -48404,6 +48409,10 @@ PrefabInstance:
     - target: {fileID: 6626637109563102373, guid: 55ac4f67ced806c47b0f94d0bb80af44, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6635060707024650393, guid: 55ac4f67ced806c47b0f94d0bb80af44, type: 3}
+      propertyPath: state
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6635060707024650393, guid: 55ac4f67ced806c47b0f94d0bb80af44, type: 3}
       propertyPath: bossTime
