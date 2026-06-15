@@ -79,6 +79,8 @@ public class UIManager : MonoBehaviour
 
         audioSource.pitch = 0.7f;
 
+        Time.fixedDeltaTime = 0.016666667f;
+
         // state = 0;
         // state = 1;
 
@@ -110,7 +112,8 @@ public class UIManager : MonoBehaviour
             if (/*tutorial.transform.childCount == 3 &&*/ OVRInput.GetDown(OVRInput.Button.One) || Input.GetKeyDown("space"))
             {
                 if (tutorialVoiceObj != null) tutorialVoiceObj.SetActive(false);
-                state++;
+                // state++;
+                UnityEngine.SceneManagement.SceneManager.LoadScene("Game");
             }
 
 
@@ -135,6 +138,8 @@ public class UIManager : MonoBehaviour
                     if (rb != null) Destroy(rb.gameObject);
                 }
             }
+
+            Debug.Log("startCount:" + startCount);
 
             startCount = CountDown(startCount, startCountText);
             if (startCount > 1) FilledCircle(startCountCircle, startCount % 1, 1f);
@@ -248,7 +253,7 @@ public class UIManager : MonoBehaviour
     {
         string[] timeupText = { "START", "EMERGENCY", "FINISH" };
 
-        count -= 1.5f * Time.deltaTime;
+        count -= 1.5f * Time.fixedDeltaTime;
 
         if (count >= 1) countText.text = "" + (int)count;
         else if (0 < count && count < 1)
