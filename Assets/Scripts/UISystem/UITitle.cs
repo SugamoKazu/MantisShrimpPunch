@@ -7,33 +7,43 @@ using UnityEngine.SceneManagement;
 
 public class UITitle : MonoBehaviour
 {
+    private enum UIState { WaitSpace, MainMenu, Dialog, None };
+    private UIState currentState = UIState.WaitSpace;
+
     [SerializeField] private GameObject uiTitle;
     [SerializeField] private GameObject urgeText;
     [SerializeField] private GameObject modeChange;
     [SerializeField] private GameObject gameStart;
 
+    [SerializeField] private GameObject dialogPanel;
+
     [SerializeField] Image connectionLeft;
     [SerializeField] Image connectionRight;
     [SerializeField] Image connectionCenter;
-
     [SerializeField] Image chargeCircleLeft;
     [SerializeField] Image chargeCircleRight;
-    private Vector4 nowColor = new Vector4(0f, 1f, 0f, 1f);
 
     [SerializeField] GameObject SettingPanel;
-
-    private int pushcount = 0;
-
-    private bool colorWhite = false;
-    private float flashTime = 0f;
-
     [SerializeField] LSerialHandler LserialHandler;
     [SerializeField] RSerialHandler RserialHandler;
 
-    private string usedArmLeft, usedArmRight;
-    //SettingsUI settingsUI; 
+    private Vector4 nowColor = new Vector4(0f, 1f, 0f, 1f);
+    private int pushcount = 0;
+    private bool colorWhite = false;
+    private float flashTime = 0f;
+    private string usedArmLeft, usedArmRight; 
 
-    private bool isTutorialMode = true;
+    void Start()
+    {
+        if (ModeManager.isVRDevice)
+        {
+            ApplyState(UIState.None);
+        }
+        else
+        {
+            ApplyState(UIState.WaitSpace);
+        }
+    }
 
     // Update is called once per frame
     void Update()
@@ -48,26 +58,13 @@ public class UITitle : MonoBehaviour
         if (ConnectionChecker("Syakote_Left")) connectionLeft.enabled = false;
         if (ConnectionChecker("Syakote_Solenoid")) connectionCenter.enabled = false;
 
-        if (OVRInput.GetDown(OVRInput.Button.PrimaryHandTrigger,OVRInput.Controller.RTouch) || Input.GetKeyDown(KeyCode.P))
+        if (!ModeManager.isVRDevice)
         {
-            if (pushcount % 2 == 0) SettingPanel.SetActive(true);
-            else SettingPanel.SetActive(false);
-            pushcount++;
+            UpdateVR();   
         }
-
-        if (OVRInput.GetDown(OVRInput.Button.One,OVRInput.Controller.RTouch))
+        else
         {
-            //DataSendManager.Instance.SendDefault("Syakote_Right");
-            //DataSendManager.Instance.SendDefault("Syakote_Left");
-
-            // デバッグ用にコメントアウト
-            // DataSendManager.Instance.SendPassive("Syakote_Right");
-            // DataSendManager.Instance.SendPassive("Syakote_Left");
-
-            pushcount = 0;
-            if(isTutorialMode) UnityEngine.SceneManagement.SceneManager.LoadScene("Tutorial");
-            else UnityEngine.SceneManagement.SceneManager.LoadScene("Game");
-
+            UpdatePC();
         }
 
         // PCモード用
@@ -92,6 +89,36 @@ public class UITitle : MonoBehaviour
 
         
 
+        
+    }
+
+    private void UpdateVR()
+    {
+        if (OVRInput.GetDown(OVRInput.Button.PrimaryHandTrigger,OVRInput.Controller.RTouch) || Input.GetKeyDown(KeyCode.P))
+        {
+            if (pushcount % 2 == 0) SettingPanel.SetActive(true);
+            else SettingPanel.SetActive(false);
+            pushcount++;
+        }
+
+        if (OVRInput.GetDown(OVRInput.Button.One,OVRInput.Controller.RTouch))
+        {
+            //DataSendManager.Instance.SendDefault("Syakote_Right");
+            //DataSendManager.Instance.SendDefault("Syakote_Left");
+
+            // デバッグ用にコメントアウト
+            // DataSendManager.Instance.SendPassive("Syakote_Right");
+            // DataSendManager.Instance.SendPassive("Syakote_Left");
+
+            pushcount = 0;
+            if(isTutorialMode) UnityEngine.SceneManagement.SceneManager.LoadScene("Tutorial");
+            else UnityEngine.SceneManagement.SceneManager.LoadScene("Game");
+
+        }
+    }
+
+    private void UpdatePC()
+    {
         
     }
 

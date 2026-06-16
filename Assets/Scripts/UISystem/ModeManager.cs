@@ -3,16 +3,20 @@ using UnityEngine.SceneManagement;
 
 public class ModeManager : MonoBehaviour
 {
+    public static bool isVRDevice = false;
+
     public static bool isMainMode = true;
     public static bool isConnectionMode = false; // true:マイコン接続モード、false:マイコン非接続モード
+    public static bool isTutorialMode = true;
+
     [SerializeField] private bool defaultConnectionMode = false;   // インスペクターで変更可能
 
     private GameObject chairObj, mainArm, subArm;
 
-    private bool isTutorialMode = true;
 
     private void Awake()
     {
+        isVRDevice = XRSettings.isDeviceActive;
         isConnectionMode = defaultConnectionMode;
     }
 
@@ -27,17 +31,21 @@ public class ModeManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (SceneManager.GetActiveScene().name == "GameTitle" && Input.GetKeyDown(KeyCode.V))
+        if (isVRDevice)
         {
-            isConnectionMode = !isConnectionMode;
-        }
-        
-        if (OVRInput.GetDown(OVRInput.Button.SecondaryThumbstick) || Input.GetKeyDown(KeyCode.LeftAlt)) //クエスト左コンのスティック押し込み
-        {
-            //Debug.Log("PrimaryThumbstick");
-            isMainMode = !isMainMode;
+            if (SceneManager.GetActiveScene().name == "GameTitle")
+            {
+                if (Input.GetKeyDown(KeyCode.V)) isConnectionMode = !isConnectionMode;
+                if (Input.GetKeyDown(KeyCode.T)) isTutorialMode = !isTutorialMode;
+            }
+
+            if (OVRInput.GetDown(OVRInput.Button.SecondaryThumbstick) || Input.GetKeyDown(KeyCode.LeftAlt))
+            {
+                isMainMode = !isMainMode;
+            }
         }
 
+        // 一旦保留
         if (SceneManager.GetActiveScene().name == "GameTitle" && Input.GetKeyDown(KeyCode.T))
         {
             isTutorialMode = !isTutorialMode;
