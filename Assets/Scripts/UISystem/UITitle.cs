@@ -7,7 +7,10 @@ using UnityEngine.SceneManagement;
 
 public class UITitle : MonoBehaviour
 {
-
+    [SerializeField] private GameObject uiTitle;
+    [SerializeField] private GameObject urgeText;
+    [SerializeField] private GameObject modeChange;
+    [SerializeField] private GameObject gameStart;
 
     [SerializeField] Image connectionLeft;
     [SerializeField] Image connectionRight;
@@ -28,10 +31,9 @@ public class UITitle : MonoBehaviour
     [SerializeField] RSerialHandler RserialHandler;
 
     private string usedArmLeft, usedArmRight;
-    //SettingsUI settingsUI;
+    //SettingsUI settingsUI; 
 
-    private bool isTutorialMode = true; 
-
+    private bool isTutorialMode = true;
 
     // Update is called once per frame
     void Update()
@@ -53,12 +55,7 @@ public class UITitle : MonoBehaviour
             pushcount++;
         }
 
-        if (Input.GetKeyDown(KeyCode.T))
-        {
-            isTutorialMode = !isTutorialMode;
-        }
-
-        if (OVRInput.GetDown(OVRInput.Button.One,OVRInput.Controller.RTouch) || Input.GetKeyDown(KeyCode.Space))
+        if (OVRInput.GetDown(OVRInput.Button.One,OVRInput.Controller.RTouch))
         {
             //DataSendManager.Instance.SendDefault("Syakote_Right");
             //DataSendManager.Instance.SendDefault("Syakote_Left");
@@ -71,6 +68,15 @@ public class UITitle : MonoBehaviour
             if(isTutorialMode) UnityEngine.SceneManagement.SceneManager.LoadScene("Tutorial");
             else UnityEngine.SceneManagement.SceneManager.LoadScene("Game");
 
+        }
+
+        // PCモード用
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            uiTitle.SetActive(false);
+            urgeText.SetActive(false);
+            modeChange.SetActive(true);
+            gameStart.SetActive(true);
         }
         
         /*
@@ -159,4 +165,8 @@ public class UITitle : MonoBehaviour
         return true;
     }
     
+    public void OnTransactionButtonClick()
+    {
+
+    }
 }

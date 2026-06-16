@@ -9,6 +9,8 @@ public class ModeManager : MonoBehaviour
 
     private GameObject chairObj, mainArm, subArm;
 
+    private bool isTutorialMode = true;
+
     private void Awake()
     {
         isConnectionMode = defaultConnectionMode;
@@ -34,6 +36,11 @@ public class ModeManager : MonoBehaviour
         {
             //Debug.Log("PrimaryThumbstick");
             isMainMode = !isMainMode;
+        }
+
+        if (SceneManager.GetActiveScene().name == "GameTitle" && Input.GetKeyDown(KeyCode.T))
+        {
+            isTutorialMode = !isTutorialMode;
         }
 
         if (isMainMode)
