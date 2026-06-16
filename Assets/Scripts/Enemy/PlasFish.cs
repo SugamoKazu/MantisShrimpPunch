@@ -77,7 +77,7 @@ public class PlasFish : MonoBehaviour
 
         if (approaching)
         {
-            if (dir.magnitude < 2.5f)
+            if (dir.magnitude < 2f)
             {
                 approaching = false;
                 attacking = true;
