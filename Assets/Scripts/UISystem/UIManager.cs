@@ -109,10 +109,10 @@ public class UIManager : MonoBehaviour
             FilledCircle(gameTimeCircle, 0f, 1f);
             playTimeText.text = "";
 
-            if (/*tutorial.transform.childCount == 3 &&*/ OVRInput.GetDown(OVRInput.Button.One) || Input.GetKeyDown("space"))
+            if (OVRInput.GetDown(OVRInput.Button.One) /* || Input.GetKeyDown("space") */)
             {
                 if (tutorialVoiceObj != null) tutorialVoiceObj.SetActive(false);
-                // state++;
+                state++;
                 UnityEngine.SceneManagement.SceneManager.LoadScene("Game");
             }
 
@@ -138,8 +138,6 @@ public class UIManager : MonoBehaviour
                     if (rb != null) Destroy(rb.gameObject);
                 }
             }
-
-            Debug.Log("startCount:" + startCount);
 
             startCount = CountDown(startCount, startCountText);
             if (startCount > 1) FilledCircle(startCountCircle, startCount % 1, 1f);
@@ -226,7 +224,7 @@ public class UIManager : MonoBehaviour
         ChargeGauge(usedArmRight, chargeCircleRight);
         Score();
 
-        if (OVRInput.Get(OVRInput.Button.Two,OVRInput.Controller.RTouch) || Input.GetKeyDown("b"))
+        if (OVRInput.Get(OVRInput.Button.Two,OVRInput.Controller.RTouch) /* || Input.GetKeyDown("b") */)
         {
             DataSendManager.Instance.SendPassive("Syakote_Left");
             DataSendManager.Instance.SendPassive("Syakote_Right");

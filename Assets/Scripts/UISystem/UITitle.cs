@@ -7,15 +7,9 @@ using UnityEngine.SceneManagement;
 
 public class UITitle : MonoBehaviour
 {
-    private enum UIState { WaitSpace, MainMenu, Dialog, None };
-    private UIState currentState = UIState.WaitSpace;
-
-    [SerializeField] private GameObject uiTitle;
-    [SerializeField] private GameObject urgeText;
-    [SerializeField] private GameObject modeChange;
-    [SerializeField] private GameObject gameStart;
-
-    [SerializeField] private GameObject dialogPanel;
+    [SerializeField] private GameObject pressSpace;
+    [SerializeField] private GameObject menuButtons;
+    [SerializeField] private GameObject titlePanel;
 
     [SerializeField] Image connectionLeft;
     [SerializeField] Image connectionRight;
@@ -35,13 +29,16 @@ public class UITitle : MonoBehaviour
 
     void Start()
     {
+        Debug.Log("VR Device: " + ModeManager.isVRDevice);
         if (ModeManager.isVRDevice)
         {
-            ApplyState(UIState.None);
+            pressSpace.SetActive(false);
+            menuButtons.SetActive(false);
         }
         else
         {
-            ApplyState(UIState.WaitSpace);
+            pressSpace.SetActive(true);
+            menuButtons.SetActive(false);
         }
     }
 
@@ -58,22 +55,13 @@ public class UITitle : MonoBehaviour
         if (ConnectionChecker("Syakote_Left")) connectionLeft.enabled = false;
         if (ConnectionChecker("Syakote_Solenoid")) connectionCenter.enabled = false;
 
-        if (!ModeManager.isVRDevice)
+        if (ModeManager.isVRDevice)
         {
-            UpdateVR();   
+            UpdateVR();
         }
         else
         {
             UpdatePC();
-        }
-
-        // PCモード用
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            uiTitle.SetActive(false);
-            urgeText.SetActive(false);
-            modeChange.SetActive(true);
-            gameStart.SetActive(true);
         }
         
         /*
@@ -85,11 +73,6 @@ public class UITitle : MonoBehaviour
             UnityEngine.SceneManagement.SceneManager.LoadScene("Initializer");
         }
         */
-        
-
-        
-
-        
     }
 
     private void UpdateVR()
@@ -111,7 +94,7 @@ public class UITitle : MonoBehaviour
             // DataSendManager.Instance.SendPassive("Syakote_Left");
 
             pushcount = 0;
-            if(isTutorialMode) UnityEngine.SceneManagement.SceneManager.LoadScene("Tutorial");
+            if(ModeManager.isTutorialMode) UnityEngine.SceneManagement.SceneManager.LoadScene("Tutorial");
             else UnityEngine.SceneManagement.SceneManager.LoadScene("Game");
 
         }
@@ -119,7 +102,24 @@ public class UITitle : MonoBehaviour
 
     private void UpdatePC()
     {
-        
+        if (pressSpace.activeSelf && Input.GetKeyDown(KeyCode.Space))
+        {
+            pressSpace.SetActive(false);
+            titlePanel.SetActive(false);
+            menuButtons.SetActive(true);
+        }
+    }
+
+    public void OnGameButtonClicked()
+    {
+        ModeManager.isTutorialMode = false;
+        SceneManager.LoadScene("Game");
+    }
+
+    public void OnTutorialButtonClicked()
+    {
+        ModeManager.isTutorialMode = true;
+        SceneManager.LoadScene("Tutorial");
     }
 
     void Mode()
@@ -192,8 +192,4 @@ public class UITitle : MonoBehaviour
         return true;
     }
     
-    public void OnTransactionButtonClick()
-    {
-
-    }
 }

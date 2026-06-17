@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.XR;
 
 public class ModeManager : MonoBehaviour
 {
@@ -16,7 +17,7 @@ public class ModeManager : MonoBehaviour
 
     private void Awake()
     {
-        isVRDevice = XRSettings.isDeviceActive;
+        isVRDevice = OVRPlugin.userPresent;
         isConnectionMode = defaultConnectionMode;
     }
 
@@ -46,10 +47,10 @@ public class ModeManager : MonoBehaviour
         }
 
         // 一旦保留
-        if (SceneManager.GetActiveScene().name == "GameTitle" && Input.GetKeyDown(KeyCode.T))
-        {
-            isTutorialMode = !isTutorialMode;
-        }
+        // if (SceneManager.GetActiveScene().name == "GameTitle" && Input.GetKeyDown(KeyCode.T))
+        // {
+        //     isTutorialMode = !isTutorialMode;
+        // }
 
         if (isMainMode)
         {
