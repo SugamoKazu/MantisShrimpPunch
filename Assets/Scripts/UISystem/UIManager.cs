@@ -16,7 +16,8 @@ public class UIManager : MonoBehaviour
     private float totalPlayTime, totalBossTime, punchPowerLeft = 0, punchPowerRight = 0;
     [SerializeField] GameObject tutorial;
     private int childCount = 3;
-    [SerializeField] GameObject tutorialVoiceObj;
+    [SerializeField] GameObject tutorialVoiceObjForVR;
+    [SerializeField] GameObject tutorialVoiceObjForPC;
     [SerializeField] GameObject pauseObj;
     [SerializeField] GameObject startObj;
     public TextMeshProUGUI startCountText;
@@ -71,7 +72,15 @@ public class UIManager : MonoBehaviour
         bossHP.SetActive(false);
 
         if (tutorial != null) tutorial.SetActive(state == 0);
-        if (tutorialVoiceObj != null) tutorialVoiceObj.SetActive(state == 0);
+        if (ModeManager.isVRDevice)
+        {
+            if (tutorialVoiceObjForVR != null) tutorialVoiceObjForVR.SetActive(state == 0);
+        }
+        else
+        {
+            if (tutorialVoiceObjForPC != null) tutorialVoiceObjForPC.SetActive(state == 0);
+        }
+        
         pauseObj.SetActive(false);
         startObj.SetActive(false);
         gameObj.SetActive(false);
@@ -111,7 +120,8 @@ public class UIManager : MonoBehaviour
 
             if (OVRInput.GetDown(OVRInput.Button.One) /* || Input.GetKeyDown("space") */)
             {
-                if (tutorialVoiceObj != null) tutorialVoiceObj.SetActive(false);
+                if (tutorialVoiceObjForVR != null) tutorialVoiceObjForVR.SetActive(false);
+                if (tutorialVoiceObjForPC != null) tutorialVoiceObjForPC.SetActive(false);
                 state++;
                 UnityEngine.SceneManagement.SceneManager.LoadScene("Game");
             }
@@ -122,7 +132,8 @@ public class UIManager : MonoBehaviour
         if (state == 1)//ゲーム開始前カウントダウン
         {
             if (tutorial != null) tutorial.SetActive(false);
-            if (tutorialVoiceObj != null) tutorialVoiceObj.SetActive(false);
+            if (tutorialVoiceObjForVR != null) tutorialVoiceObjForVR.SetActive(false);
+            if (tutorialVoiceObjForPC != null) tutorialVoiceObjForPC.SetActive(false);
             if (startObj != null) startObj.SetActive(true);
             if (gameObj != null) gameObj.SetActive(true);
 
@@ -139,7 +150,7 @@ public class UIManager : MonoBehaviour
                 }
             }
 
-            startCount = CountDown(startCount, startCountText);
+            startCount = CountDown(startCount, startCountText, state);
             if (startCount > 1) FilledCircle(startCountCircle, startCount % 1, 1f);
             else FilledCircle(startCountCircle, 0f, 1f);
 
@@ -152,7 +163,7 @@ public class UIManager : MonoBehaviour
             startObj.SetActive(false);
             //gameObj.SetActive(true);
 
-            playTime = CountDown(playTime, playTimeText);
+            playTime = CountDown(playTime, playTimeText, state);
             if (playTime > 1) FilledCircle(gameTimeCircle, playTime - 1, totalPlayTime);
             else FilledCircle(gameTimeCircle, 0f, totalPlayTime);
 
@@ -166,7 +177,7 @@ public class UIManager : MonoBehaviour
             bossObject.SetActive(true);
             bossHP.SetActive(true);
 
-            bossTime = CountDown(bossTime, bossTimeText);
+            bossTime = CountDown(bossTime, bossTimeText, state);
             FilledCircle(gameTimeCircle, bossTime - 1, totalBossTime);
 
             bossDefeated = bossObject.GetComponent<Boss>().defeated;
@@ -247,11 +258,12 @@ public class UIManager : MonoBehaviour
         }
     }
 
-    float CountDown(float count, TextMeshProUGUI countText)
+    float CountDown(float count, TextMeshProUGUI countText, int nowState)
     {
         string[] timeupText = { "START", "EMERGENCY", "FINISH" };
 
-        count -= 1.5f * Time.fixedDeltaTime;
+        if (nowState == 1) count -= 1.5f * Time.fixedDeltaTime;
+        else count -= 1.5f * Time.deltaTime;
 
         if (count >= 1) countText.text = "" + (int)count;
         else if (0 < count && count < 1)

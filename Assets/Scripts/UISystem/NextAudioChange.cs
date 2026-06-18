@@ -122,6 +122,7 @@ public class NextAudioChange : MonoBehaviour
     {
         nextAudio.SetActive(true);
         gameObject.SetActive(false);
+        Debug.Log("SetActiveFalse" + gameObject.name);
     }
     
     void SetArrow()
