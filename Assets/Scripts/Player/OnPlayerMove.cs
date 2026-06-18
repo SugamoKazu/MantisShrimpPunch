@@ -15,10 +15,9 @@ public class OnPlayerMove : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (playerMove != null)
+        if (playerMove != null && !ModeManager.isVRDevice)
         {
             playerMove.enabled = true;
-            Debug.Log("有効化しました！");
         }
     }
 }
