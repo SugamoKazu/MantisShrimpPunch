@@ -17,7 +17,7 @@ public class ModeManager : MonoBehaviour
 
     private void Awake()
     {
-        isVRDevice = OVRPlugin.userPresent;
+        isVRDevice = OVRPlugin.hmdPresent;
         isConnectionMode = defaultConnectionMode;
     }
 
