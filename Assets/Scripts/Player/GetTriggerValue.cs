@@ -58,7 +58,7 @@ public class GetTriggerValue : MonoBehaviour
             }
             else // PCモードはマウス操作
             {
-                if (Input.GetMouseButton(0))
+                if (OVRInput.Get(OVRInput.RawButton.LIndexTrigger) || Input.GetMouseButton(0))
                 {
                     Lvalue = Mathf.Min(Lvalue + Time.deltaTime * 2f, 2f);
                 }
@@ -94,7 +94,7 @@ public class GetTriggerValue : MonoBehaviour
             }
             else // PCモードはマウス操作
             {
-                if (Input.GetMouseButton(1))
+                if (OVRInput.Get(OVRInput.RawButton.RIndexTrigger) || Input.GetMouseButton(1))
                 {
                     Rvalue = Mathf.Min(Rvalue + Time.deltaTime * 2f, 2f);
                 }
@@ -155,16 +155,8 @@ public class GetTriggerValue : MonoBehaviour
         bool isTriggerPressed = false;
         bool isTriggerReleased = false;
 
-        if (ModeManager.isConnectionMode)
-        {
-            isTriggerPressed = OVRInput.Get(OVRInput.RawButton.LIndexTrigger);
-            isTriggerReleased = OVRInput.GetUp(OVRInput.RawButton.LIndexTrigger);
-        }
-        else
-        {
-            isTriggerPressed = Input.GetMouseButton(0);
-            isTriggerReleased = Input.GetMouseButtonUp(0);
-        }
+        isTriggerPressed = OVRInput.Get(OVRInput.RawButton.LIndexTrigger) || Input.GetMouseButton(0);
+        isTriggerReleased = OVRInput.GetUp(OVRInput.RawButton.LIndexTrigger) || Input.GetMouseButtonUp(0);
 
         if (isTriggerPressed)
         {
@@ -208,16 +200,8 @@ public class GetTriggerValue : MonoBehaviour
         bool isTriggerPressed = false;
         bool isTriggerReleased = false;
 
-        if (ModeManager.isConnectionMode)
-        {
-            isTriggerPressed = OVRInput.Get(OVRInput.RawButton.RIndexTrigger);
-            isTriggerReleased = OVRInput.GetUp(OVRInput.RawButton.RIndexTrigger);
-        }
-        else
-        {
-            isTriggerPressed = Input.GetMouseButton(1);
-            isTriggerReleased = Input.GetMouseButtonUp(1);
-        }
+        isTriggerPressed = OVRInput.Get(OVRInput.RawButton.RIndexTrigger) || Input.GetMouseButton(1);
+        isTriggerReleased = OVRInput.GetUp(OVRInput.RawButton.RIndexTrigger) || Input.GetMouseButtonUp(1);
 
         if (isTriggerPressed)
         {
