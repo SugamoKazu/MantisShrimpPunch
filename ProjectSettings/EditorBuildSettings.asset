@@ -8,8 +8,8 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/Scenes/SampleScene.unity
     guid: 99c9720ab356a0642a771bea13969a05
-  - enabled: 1
-    path: Assets/Scenes/Initializer.unity
+  - enabled: 0
+    path: Assets/Scenes/MaterialScene/Initializer.unity
     guid: 270dcefaf512ab94cb8c72139d0bc0a7
   - enabled: 1
     path: Assets/Scenes/GameTitle.unity
@@ -18,13 +18,13 @@ EditorBuildSettings:
     path: Assets/Scenes/Game.unity
     guid: b1237ddb55b25244aa6964e6a5956262
   - enabled: 0
-    path: Assets/Scenes/Player.unity
+    path: Assets/Scenes/MaterialScene/Player.unity
     guid: 2fd0d2959a8196d47957a885b959389b
   - enabled: 0
-    path: Assets/Scenes/Feedback.unity
+    path: Assets/Scenes/MaterialScene/Feedback.unity
     guid: 8a790905c11792841a607983b8362ced
   - enabled: 0
-    path: Assets/Scenes/BuildTest.unity
+    path: Assets/Scenes/MaterialScene/BuildTest.unity
     guid: ee38f7d867906db49bccd45730bc7d10
   - enabled: 0
     path: Assets/Bluetooth for Android/Example/StartingExample/StartingExample.unity
